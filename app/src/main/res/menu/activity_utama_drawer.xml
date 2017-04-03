@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_panic_button"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Panic Button" />
+        <item
+            android:id="@+id/nav_kirim_laporan"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Kirim Laporan" />
+        <item
+            android:id="@+id/nav_petunjuk_penggunaan"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Petunjuk Penggunaan" />
+        <item
+            android:id="@+id/nav_tentag_aplikasi"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tentang Aplikasi" />
+        <item
+            android:id="@+id/nav_keluar"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Keluar" />
+    </group>
+</menu>

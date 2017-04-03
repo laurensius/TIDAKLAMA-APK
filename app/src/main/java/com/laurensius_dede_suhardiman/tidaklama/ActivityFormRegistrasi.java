@@ -24,28 +24,22 @@ import java.util.List;
 
 public class ActivityFormRegistrasi extends Activity {
 
+    List<NameValuePair> data_pendaftaran = new ArrayList<NameValuePair>(7);
     private EditText etUsername, etPassword, etKonfirmasiPassword, etNamaLengkap,  etAlamat, etNoHp;
-    private DatePicker dpTtl;
-    private String v_username, v_password, v_konfirmasipassword, v_namalengkap, v_tangallahir, v_alamat, v_nohp;
     private Button btnMasuk, btnDaftar;
+    private DatePicker dpTtl;
     private TextView tvDebug;
     protected Dialog dialBox;
+    private ProgressDialog pDialog;
 
-    ProgressDialog pDialog;
-
-    private static String VAL_OK = "OK";
-    private static String VAL_FRM_ERR = "Pastikan semua komponen pendaftaran telah terisi.";
-    private static String VAL_EMAIL_ERR = "Pastikan format penulisan alamat email Anda benar.";
-    private static String VAL_PASWD_ERR = "Pastikan password dan konfirmasi password sesuai. \n Panjang password minimal 6 karakter";
-    String response_pendaftaran;
-    private SambunganServer myServer = new SambunganServer();
-    private DibalikLayar dibalikLayar = new DibalikLayar();
-
-    List<NameValuePair> data_pendaftaran = new ArrayList<NameValuePair>(7);
-
+    private String v_username, v_password, v_konfirmasipassword, v_namalengkap, v_tangallahir, v_alamat, v_nohp;
     private static String CODE = "";
     private static String MESSAGE = "";
+    String TAG = getString(R.string.tag);
+    String response_pendaftaran;
 
+    private SambunganServer myServer = new SambunganServer();
+    private DibalikLayar dibalikLayar = new DibalikLayar();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,21 +80,21 @@ public class ActivityFormRegistrasi extends Activity {
                 v_nohp = etNoHp.getText().toString();
 
                 validasiform = validasiForm();
-                if (validasiform.equals(VAL_OK) == false) {
+                if (validasiform.equals(SystemMessage.VAL_OK) == false) {
                     Toast.makeText(getApplicationContext(), "Perhatian : \n" + validasiform, Toast.LENGTH_SHORT).show();
                 }
 
                 validasipassword = validasiPassword();
-                if (validasipassword.equals(VAL_OK) == false) {
+                if (validasipassword.equals(SystemMessage.VAL_OK) == false) {
                     Toast.makeText(getApplicationContext(), "Perhatian : \n" + validasipassword, Toast.LENGTH_SHORT).show();
                 }
 
                 validasiusername = validasiUsername();
-                if (validasiusername.equals(VAL_OK) == false) {
+                if (validasiusername.equals(SystemMessage.VAL_OK) == false) {
                     Toast.makeText(getApplicationContext(), "Perhatian : \n" + validasiusername, Toast.LENGTH_SHORT).show();
                 }
 
-                if (validasiform.equals(VAL_OK) && validasiusername.equals(VAL_OK) && validasipassword.equals(VAL_OK)) {
+                if (validasiform.equals(SystemMessage.VAL_OK) && validasiusername.equals(SystemMessage.VAL_OK) && validasipassword.equals(SystemMessage.VAL_OK)) {
                     v_tangallahir = String.valueOf(dpTtl.getYear()).concat("-").concat(String.valueOf(dpTtl.getMonth())).concat("-").concat(String.valueOf(dpTtl.getDayOfMonth()));
                     data_pendaftaran.add(new BasicNameValuePair("username", v_username));
                     data_pendaftaran.add(new BasicNameValuePair("password", v_password));
@@ -128,24 +122,24 @@ public class ActivityFormRegistrasi extends Activity {
         if(v_username.equals("") || v_password.equals("") ||
             v_konfirmasipassword.equals("") || v_namalengkap.equals("") ||
             v_alamat.equals("")){
-            return VAL_FRM_ERR;
+            return SystemMessage.VAL_FRM_ERR;
         }else{
-            return VAL_OK;
+            return SystemMessage.VAL_OK;
         }
     }
 
     private String validasiUsername(){
         if(v_username.contains("@") && v_username.contains(".") && (v_username.length() > 4) && (v_username.contains(" ")==false))
-            return this.VAL_OK;
+            return SystemMessage.VAL_OK;
         else
-            return this.VAL_EMAIL_ERR;
+            return SystemMessage.VAL_EMAIL_ERR;
     }
 
     private String validasiPassword(){
         if(v_password.equals(v_konfirmasipassword) && v_password.length() >= 6)
-            return this.VAL_OK;
+            return SystemMessage.VAL_OK;
         else
-            return this.VAL_PASWD_ERR;
+            return SystemMessage.VAL_PASWD_ERR;
     }
 
     public class DibalikLayar extends AsyncTask<Void,Void,Void> {
@@ -171,12 +165,12 @@ public class ActivityFormRegistrasi extends Activity {
                     ActivityFormRegistrasi.CODE = jsonResponse.getString("code");
                     ActivityFormRegistrasi.MESSAGE = jsonResponse.getString("message");
                 } catch (final JSONException e) {
-                    Log.e("Pendaftaran : ", "Error pada saat parsing JSON detail sebagai berikut : " + e.getMessage());
-                    ActivityFormRegistrasi.MESSAGE = "Pendaftaran gagal. Silahkan coba lagi!";
+                    Log.e(TAG, e.getMessage());
+                    ActivityFormRegistrasi.MESSAGE = SystemMessage.REGISTRASI_GAGAL_JSON;
                 }
             } else {
-                ActivityFormRegistrasi.MESSAGE = "Pendaftaran gagal. Periksa layanan internet dan silahkan coba lagi!";
-                Log.d("Pendaftaran : ", "Tidak dapat mengakses JSON web service.");
+                ActivityFormRegistrasi.MESSAGE = SystemMessage.REGISTRASI_GAGAL_NETWORK;
+                Log.d(TAG, SystemMessage.REGISTRASI_GAGAL_NETWORK);
             }
             return null;
         }
@@ -190,7 +184,6 @@ public class ActivityFormRegistrasi extends Activity {
             }
             formInit();
             Toast.makeText(getApplicationContext(),ActivityFormRegistrasi.MESSAGE,Toast.LENGTH_LONG).show();
-//            tvDebug.setText(response_pendaftaran);
             Intent i = new Intent(ActivityFormRegistrasi.this, ActivityFormLogin.class);
             startActivity(i);
             finish();

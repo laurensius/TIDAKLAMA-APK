@@ -51,6 +51,8 @@ public class ActivityFormLogin extends Activity {
     private String mode_registrasi;
     private String status_user;
 
+    private KelolaDatabase kelolaDatabase = new KelolaDatabase();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,18 +149,23 @@ public class ActivityFormLogin extends Activity {
                 pDialog.dismiss();
             }
             formInit();
-            tvNotifikasi.setText(ActivityFormLogin.MESSAGE);
-            if(ActivityFormLogin.CODE.equals("1")){
-                if(status_user.equals("1")){
-                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Verified");
-                }else
-                if(status_user.equals("2")){
-                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Unverified");
-                }else
-                if(status_user.equals("3")){
-                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Banned");
-                }
-            }
+            Intent i = new Intent(ActivityFormLogin.this,ActivityUtama.class);
+            startActivity(i);
+            finish();
+
+//            tvNotifikasi.setText(ActivityFormLogin.MESSAGE);
+//            if(ActivityFormLogin.CODE.equals("1")){
+//                if(status_user.equals("1")){
+//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Verified");
+//                }else
+//                if(status_user.equals("2")){
+//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Unverified");
+//                }else
+//                if(status_user.equals("3")){
+//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Banned");
+//                }
+//            }
+
         }
     }
 }
