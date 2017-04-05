@@ -1,14 +1,111 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.laurensius_dede_suhardiman.tidaklama.FragmentPanicButton">
 
-
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Kirim Laporan" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutReady"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/tvRegistrasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Kirim Laporan"
+                android:textColor="#1F4788"
+                android:textSize="10pt"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvNotifikasiLaporan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"/>
+
+            <TextView
+                android:text="Tanggal Kejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+            <DatePicker
+                android:id="@+id/dpTanggalKejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:layoutMode="clipBounds"
+                android:startYear="1950"
+                android:endYear="2017" />
+
+            <TextView
+                android:text="Lokasi Kejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+            <EditText
+                android:id="@+id/etLokasiKejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Lokasi Kejadian"
+                android:inputType="textMultiLine"
+                android:maxLength="499"
+                android:padding="5dp"/>
+
+            <TextView
+                android:text="Kategori / Jenis Kejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+            <Spinner
+                android:id="@+id/spJenisKejadian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"/>
+
+            <TextView
+                android:text="Deskripsi Kejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+            <EditText
+                android:id="@+id/etDeskripsiKejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:maxLength="499"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btnKirimLaporan"
+                android:text="Kirim Laporan"
+                android:background="#22A7F0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutNotReady"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

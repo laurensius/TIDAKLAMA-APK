@@ -5,6 +5,10 @@
     <string name="app_method_registrasi">/registrasi</string>
     <string name="app_method_login">/login</string>
     <string name="app_class_kejadian">/kejadian</string>
+    <string name="app_method_kirim_kejadian">/kirim_kejadian</string>
+    <string name="app_method_referensi_kejadian">/referensi_kejadian</string>
+    <string name="app_class_panic">/panic</string>
+    <string name="app_method_kirim_panic">/kirim_panic</string>
 
     <string name="navigation_drawer_open">Buka navigation drawer</string>
     <string name="navigation_drawer_close">Tutup navigation drawer</string>
@@ -16,4 +20,11 @@
 
     <string name="tag">config</string>
     <string name="title_activity_activity_splash_screen">config</string>
+    <string-array name="items">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>

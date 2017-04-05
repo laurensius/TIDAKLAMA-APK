@@ -3,6 +3,7 @@
     package="com.laurensius_dede_suhardiman.tidaklama">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActivitySplashScreen"
-            android:label="@string/title_activity_activity_splash_screen"
+            android:label="TIDAKLAMA"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

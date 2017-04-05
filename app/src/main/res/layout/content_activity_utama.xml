@@ -18,16 +18,4 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
-    <LinearLayout
-        android:gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100px">
-        <TextView
-            android:textAlignment="center"
-            android:background="#444"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Buat Iklan"/>
-    </LinearLayout>
 </RelativeLayout>

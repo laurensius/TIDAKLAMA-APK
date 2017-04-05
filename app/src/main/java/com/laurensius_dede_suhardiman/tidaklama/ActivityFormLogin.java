@@ -1,16 +1,17 @@
 package com.laurensius_dede_suhardiman.tidaklama;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,24 +22,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityFormLogin extends Activity {
+public class ActivityFormLogin extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
     private Button btnMasuk,btnDaftar;
-    protected Dialog dialBox;
-    private TextView tvNotifikasi;
-
+    private TextView tvNotifikasiLogin;
     String response_login;
     private SambunganServer myServer = new SambunganServer();
-    private DibalikLayar dibalikLayar = new DibalikLayar();
-
     private ProgressDialog pDialog;
     List<NameValuePair> data_login = new ArrayList<NameValuePair>(7);
-
-    private static String CODE;
-    private static String MESSAGE;
-    private static String DATA_USER;
-
+    private static String CODE = "";
+    private static String MESSAGE = "";
+    private static String DATA_USER = "";
     private String v_username, v_password;
     private String id_user;
     private String username;
@@ -50,17 +45,17 @@ public class ActivityFormLogin extends Activity {
     private String tanggal_registrasi;
     private String mode_registrasi;
     private String status_user;
-
+    private String TAG;
     private KelolaDatabase kelolaDatabase = new KelolaDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_login);
+        TAG = getString(R.string.app_name);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        tvNotifikasi = (TextView) findViewById(R.id.tvNotifikasi);
-
+        tvNotifikasiLogin = (TextView) findViewById(R.id.tvNotifikasiLogin);
         btnDaftar = (Button) findViewById(R.id.btnDaftar);
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +65,6 @@ public class ActivityFormLogin extends Activity {
                 finish();
             }
         });
-
         btnMasuk = (Button) findViewById(R.id.btnMasuk);
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +74,32 @@ public class ActivityFormLogin extends Activity {
                 ActivityFormLogin.DATA_USER = "";
                 v_username = etUsername.getText().toString();
                 v_password = etPassword.getText().toString();
-                data_login.add(new BasicNameValuePair("username", v_username));
-                data_login.add(new BasicNameValuePair("password", v_password));
-                new DibalikLayar().execute();
+                if(v_username.equals("") || v_password.equals("")){
+                    formInit();
+                    tvNotifikasiLogin.setText(SystemMessage.VAL_LOGIN_ERR);
+                    toastMaker(SystemMessage.VAL_LOGIN_ERR);
+                }else{
+                    data_login.add(new BasicNameValuePair("username", v_username));
+                    data_login.add(new BasicNameValuePair("password", v_password));
+                    formInit();
+                    new DibalikLayar().execute();
+                }
             }
         });
         formInit();
     }
 
     private void formInit(){
+        tvNotifikasiLogin.setText("");
         etUsername.setText("");
         etPassword.setText("");
         etUsername.findFocus();
+    }
+
+    private void toastMaker(String text){
+        Toast toast= Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.FILL, 0, 0);
+        toast.show();
     }
 
     public class DibalikLayar extends AsyncTask<Void,Void,Void> {
@@ -116,7 +124,6 @@ public class ActivityFormLogin extends Activity {
                     JSONObject jsonResponse = new JSONObject(response_login);
                     ActivityFormLogin.CODE = jsonResponse.getString("code");
                     ActivityFormLogin.MESSAGE = jsonResponse.getString("message");
-
                     JSONArray datasetDataUser = jsonResponse.getJSONArray("data_user");
                     for(int x=0;x<datasetDataUser.length();x++){
                         JSONObject data_user = datasetDataUser.getJSONObject(x);
@@ -132,12 +139,14 @@ public class ActivityFormLogin extends Activity {
                         status_user = data_user.getString("status_user");
                     }
                 } catch (final JSONException e) {
-                    Log.e("Login : ", "Error pada saat parsing JSON detail sebagai berikut : " + e.getMessage());
-                    ActivityFormLogin.MESSAGE = "Login gagal. Silahkan coba lagi!";
+                    Log.e(TAG, e.getMessage());
+                    ActivityFormLogin.CODE = SystemMessage.LOGIN_FAILED;
+                    ActivityFormLogin.MESSAGE = SystemMessage.LOGIN_GAGAL_JSON;
                 }
             } else {
-                ActivityFormLogin.MESSAGE = "Login gagal. Periksa layanan internet dan silahkan coba lagi!";
-                Log.d("Login : ", "Tidak dapat mengakses JSON web service.");
+                ActivityFormLogin.CODE = SystemMessage.LOGIN_FAILED;
+                ActivityFormLogin.MESSAGE = SystemMessage.LOGIN_GAGAL_NETWORK;
+                Log.d(TAG, SystemMessage.LOGIN_GAGAL_NETWORK);
             }
             return null;
         }
@@ -148,24 +157,41 @@ public class ActivityFormLogin extends Activity {
             if(pDialog.isShowing()){
                 pDialog.dismiss();
             }
-            formInit();
-            Intent i = new Intent(ActivityFormLogin.this,ActivityUtama.class);
-            startActivity(i);
-            finish();
-
-//            tvNotifikasi.setText(ActivityFormLogin.MESSAGE);
-//            if(ActivityFormLogin.CODE.equals("1")){
-//                if(status_user.equals("1")){
-//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Verified");
-//                }else
-//                if(status_user.equals("2")){
-//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Unverified");
-//                }else
-//                if(status_user.equals("3")){
-//                    tvNotifikasi.setText(ActivityFormLogin.MESSAGE + "Banned");
-//                }
-//            }
-
+            toastMaker(ActivityFormLogin.MESSAGE);
+            if(ActivityFormLogin.CODE.equals(SystemMessage.LOGIN_SUCCESS)){
+                String return_buat_database = kelolaDatabase.buatDatabase(getString(R.string.sqlite_db_name));
+                if(return_buat_database.equals(SystemMessage.BUAT_DATABASE_SUCCESS)){
+                    Log.d(TAG,return_buat_database);
+                    String return_cek_tabel_config = kelolaDatabase.cekTabel(getString(R.string.sqlite_t_config));
+                    if(return_cek_tabel_config.equals(SystemMessage.CEK_TABEL_UNAVAILABLE)){
+                        String return_buat_table = kelolaDatabase.buatTabelConfig();
+                        Log.d(TAG,return_buat_table);
+                        if(return_buat_table.equals(SystemMessage.BUAT_TABEL_CONFIG_SUCCESS)){
+                            String return_insert_config = kelolaDatabase.inputTabelConfig(id_user,username,password,status_user,SystemMessage.LOGIN_STATE_IN);
+                            Log.d(TAG,return_insert_config);
+                            if(return_insert_config.equals(SystemMessage.INSERT_DATA_CONFIG_SUCCESS)){
+                                kelolaDatabase.tutupKoneksi();
+                                Intent i = new Intent(ActivityFormLogin.this,ActivityUtama.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
+                    }else
+                    if(return_cek_tabel_config.equals(SystemMessage.CEK_TABEL_AVAILABLE)){
+                        String return_update_config = kelolaDatabase.inputTabelConfig(id_user,username,password,status_user,SystemMessage.LOGIN_STATE_IN);
+                        Log.d(TAG,return_update_config);
+                        if(return_update_config.equals(SystemMessage.UPDATE_DATA_CONFIG_SUCCESS)){
+                            kelolaDatabase.tutupKoneksi();
+                            Intent i = new Intent(ActivityFormLogin.this,ActivityUtama.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    }
+                }
+            }else
+            if(ActivityFormLogin.CODE.equals(SystemMessage.LOGIN_FAILED)) {
+                tvNotifikasiLogin.setText(ActivityFormLogin.MESSAGE);
+            }
         }
     }
 }

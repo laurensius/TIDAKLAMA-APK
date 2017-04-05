@@ -7,43 +7,65 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.laurensius_dede_suhardiman.tidaklama.ActivityFormLogin">
+    tools:context="com.laurensius_dede_suhardiman.tidaklama.ActivityFormLogin"
+    android:background="#303f9f">
+
     <LinearLayout
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:gravity="center"
-            android:id="@+id/tvNotifikasi"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvJudulLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="10pt"
+            android:textStyle="bold"/>
 
         <TextView
             android:text="Alamat Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"/>
+            android:layout_marginTop="40dp"
+            android:textColor="#FFFFFF" />
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username@Domain.Com"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:background="#ffffff"
+            android:padding="5dp"/>
 
         <TextView
             android:text="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF" />
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
-            android:maxLength="99"/>
+            android:maxLength="99"
+            android:background="#ffffff"
+            android:padding="5dp" />
+
+        <TextView
+            android:gravity="left"
+            android:id="@+id/tvNotifikasiLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            android:padding="5dp"/>
 
         <Button
             android:id="@+id/btnMasuk"
@@ -51,7 +73,7 @@
             android:background="#22A7F0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="20dp" />
 
         <Button
             android:id="@+id/btnDaftar"
@@ -59,7 +81,7 @@
             android:background="#F7CA18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"/>
+            android:layout_marginTop="10dp"/>
 
 
     </LinearLayout>

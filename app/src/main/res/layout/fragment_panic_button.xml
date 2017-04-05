@@ -2,11 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.laurensius_dede_suhardiman.tidaklama.FragmentPanicButton">
 
-    <TextView
+
+    <Button
+        android:shadowColor="#9D2933"
+        android:id="@+id/btnPanicButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Panic Button" />
+        android:textSize="10pt"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:padding="10dp"
+        android:text="Tekan area berwarna merah selama minimal 5 detik kemudian lepaskan."
+        android:background="#CF000F"/>
+
 
 </LinearLayout>

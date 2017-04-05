@@ -12,7 +12,8 @@ public class ActivitySplashScreen extends AppCompatActivity {
     TextView tvLogoSingle, tvLogoString, tvLogoLoading;
     Intent i;
     String return_buat_database, return_cek_tabel,return_cek_isi_tabel;
-    String TAG = getString(R.string.tag);
+    String TAG;
+    private static long SLEEP_TIME = 5;
 
     private KelolaDatabase kelolaDatabase = new KelolaDatabase();
     @Override
@@ -21,12 +22,31 @@ public class ActivitySplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TAG = getString(R.string.tag);
         tvLogoSingle = (TextView)findViewById(R.id.tvLogoSingle);
         tvLogoString = (TextView)findViewById(R.id.tvLogoString);
         tvLogoLoading = (TextView)findViewById(R.id.tvLogoLoading);
 
+        Thread timer = new Thread() {
+            public void run() {
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    i = cekDatabase();
+                    startActivity(i);
+                    finish();
+                }
+            }
+        };
+        timer.start();
+    }
+
+
+    public Intent cekDatabase(){
         return_buat_database = kelolaDatabase.buatDatabase(getString(R.string.sqlite_db_name));
-        Log.d(TAG,return_buat_database);
+        Log.d(TAG, return_buat_database);
         if(return_buat_database.equals(SystemMessage.BUAT_DATABASE_SUCCESS)){
             return_cek_tabel = kelolaDatabase.cekTabel(getString(R.string.sqlite_t_config));
             Log.d(TAG,return_cek_tabel);
@@ -44,8 +64,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
                 i = new Intent(ActivitySplashScreen.this,ActivityFormRegistrasi.class);
             }
         }
-        startActivity(i);
-        finish();
+        kelolaDatabase.tutupKoneksi();
+        return i;
     }
-
 }

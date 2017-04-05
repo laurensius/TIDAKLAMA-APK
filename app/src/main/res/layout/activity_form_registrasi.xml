@@ -7,67 +7,93 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.laurensius_dede_suhardiman.tidaklama.ActivityFormRegistrasi">
+    tools:context="com.laurensius_dede_suhardiman.tidaklama.ActivityFormRegistrasi"
+    android:background="#303f9f">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvJudulLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Registrasi"
+            android:textColor="#FFFFFF"
+            android:textSize="10pt"
+            android:textStyle="bold"/>
+
+        <TextView
             android:text="Alamat Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"/>
+            android:layout_marginTop="40dp"
+            android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username@Domain.Com"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:background="#FFFFFF"
+            android:padding="5dp"/>
 
         <TextView
             android:text="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
+            android:background="#FFFFFF"
+            android:padding="5dp"
             android:maxLength="99"/>
 
         <TextView
             android:text="Konfirmasi Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF" />
         <EditText
             android:id="@+id/etKonfirmasiPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Konfirmasi Password"
             android:inputType="textPassword"
+            android:background="#FFFFFF"
+            android:padding="5dp"
             android:maxLength="99"/>
 
         <TextView
             android:text="Nama Lengkap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF" />
         <EditText
             android:id="@+id/etNamaLengkap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Lengkap Anda"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            android:maxLength="99"/>
 
         <TextView
             android:text="Tanggal Lahir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF" />
         <DatePicker
             android:id="@+id/dpTtl"
             android:layout_width="match_parent"
@@ -75,32 +101,49 @@
             android:datePickerMode="spinner"
             android:layoutMode="clipBounds"
             android:startYear="1950"
-            android:endYear="2017" />
+            android:endYear="2017"
+            android:background="#FFFFFF"/>
 
         <TextView
             android:text="Alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/etAlamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Alamat Rumah"
             android:inputType="textLongMessage"
+            android:background="#FFFFFF"
+            android:padding="5dp"
             android:maxLength="199"/>
 
         <TextView
             android:text="Nomor Handphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/etNoHp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
-            android:inputType="phone"/>
+            android:hint="No Handphone"
+            android:inputType="phone"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            android:maxLength="15"/>
+
+        <TextView
+            android:gravity="left"
+            android:id="@+id/tvNotifikasiRegistrasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"/>
 
         <Button
             android:id="@+id/btnDaftar"
@@ -108,7 +151,7 @@
             android:background="#22A7F0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="20dp" />
 
         <Button
             android:id="@+id/btnMasuk"
@@ -116,12 +159,7 @@
             android:background="#F7CA18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"/>
-
-        <TextView
-            android:id="@+id/tvDebug"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 </ScrollView>
