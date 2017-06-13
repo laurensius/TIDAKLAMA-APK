@@ -39,7 +39,6 @@ public class SambunganServer {
                 if (params != null) {
                     httpPost.setEntity(new UrlEncodedFormEntity(params));
                 }
-
                 httpResponse = httpClient.execute(httpPost);
 
             } else if (method == GET) {

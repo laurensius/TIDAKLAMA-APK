@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TIDAKLAMA</string>
-    <string name="host_server">http://192.168.0.100/tidaklama/index.php</string>
+    <string name="host_server">http://10.0.2.2/tidaklama/index.php</string>
     <string name="app_class_user">/user</string>
     <string name="app_method_registrasi">/registrasi</string>
     <string name="app_method_login">/login</string>

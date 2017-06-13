@@ -194,6 +194,7 @@ public class FragmentKirimLaporan extends Fragment  {
                 formInit();
             }else{
                 tvNotifikasiLaporan.setText(FragmentKirimLaporan.MESSAGE);
+                tvNotifikasiLaporan.append(response_laporan);
             }
         }
     }
